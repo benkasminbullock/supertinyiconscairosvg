@@ -40,6 +40,9 @@ for my $file (@svg) {
     my $base = $file;
     $base =~ s!.*/!!;
     copy $file, "$svgdir/$base" or die $!;
+    my $hrow = $table->push ('tr');
+    $hrow->push ('th', text => $base, class => 'svgfilename',
+		 attr => {colspan => 2});
     my $row = $table->push ('tr');
     my $svgtd = $row->push ('td');
     $svgtd->push ('img', attr => {src => "svg/$base", %attr});
