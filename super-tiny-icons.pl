@@ -24,6 +24,10 @@ my $svgdir = "$dir/svg";
 md ($svgdir, $verbose);
 md ("$dir/png", $verbose);
 my ($html, $body) = make_page (title => 'Super Tiny Icons');
+my $stiorigin = '';
+my $links = $body->push ('ul');
+my $li = $links->push ('li');
+$li->push ('a', href => 'https://github.com/edent/SuperTinyIcons', text => 'Super Tiny Icons repository');
 my $table = $body->push ('table');
 my %attr = (width => 500, height => 500);
 for my $file (@svg) {
