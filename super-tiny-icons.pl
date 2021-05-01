@@ -6,8 +6,8 @@ use lib "/home/ben/projects/image-svg-path/lib";
 use lib "/home/ben/projects/image-cairosvg/lib";
 use Image::CairoSVG;
 
-#my $verbose;
-my $verbose = 1;
+my $verbose;
+#my $verbose = 1;
 binmode STDOUT, ":encoding(utf8)";
 my $wwwdir = "$Bin";
 my $dir = "$wwwdir/docs";
