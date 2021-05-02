@@ -5,6 +5,8 @@ use HTML::Make::Page 'make_page';
 use lib "/home/ben/projects/image-svg-path/lib";
 use lib "/home/ben/projects/image-cairosvg/lib";
 use Image::CairoSVG;
+use lib $Bin;
+use STI;
 
 my $verbose;
 #my $verbose = 1;
@@ -68,9 +70,3 @@ if ($verbose) {
 }
 exit;
 
-sub md ($dir, $verbose)
-{
-    if (! -d $dir) {
-	do_system ("mkdir -p $dir;chmod 0755 $dir", $verbose);
-    }
-}
