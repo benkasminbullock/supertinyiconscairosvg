@@ -9,7 +9,7 @@ use lib $Bin;
 use STI;
 
 my $verbose;
-#my $verbose = 1;
+#$verbose = 1;
 binmode STDOUT, ":encoding(utf8)";
 my $wwwdir = "$Bin";
 my $dir = "$wwwdir/docs";
@@ -30,10 +30,11 @@ my $stiorigin = '';
 my $links = $body->push ('ul');
 my $li = $links->push ('li');
 $li->push ('a', href => 'https://github.com/edent/SuperTinyIcons', text => 'Super Tiny Icons repository');
+$li->push ('a', href => 'twemoji/index.html', text => 'Twitter Emoji');
 my $table = $body->push ('table');
 my %attr = (width => 500, height => 500);
 for my $file (@svg) {
-    if ($file !~ /\/youtube/) {
+    if ($file !~ /\/kaggle\./) {
 #	next;
     }
     # Make a new object each time because this is prone to crashing
@@ -57,7 +58,15 @@ for my $file (@svg) {
 	if (-f $png) {
 	    unlink ($png) or die $!;
 	}
-	my $surface = $cairosvg->render ($file);
+	my $surface;
+	if ($file =~ /linux_mint/) {
+	    my $text = read_text ($file);
+	    $text =~ s!MM!M!;
+	    $surface = $cairosvg->render ($text);
+	}
+	else {
+	    $surface = $cairosvg->render ($file);
+	}
 	$surface->write_to_png ($png);
     };
     if ($@) {
