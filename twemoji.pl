@@ -27,8 +27,8 @@ my $twsize = 36;
 my ($mainhtml, $mainbody) = make_page (
     title => "Twitter Emoji Collection via Image::CairoSVG"
 );
-$mainhtml->push ('h1', text => 'Twitter emoji via Image::CairoSVG');
-$mainhtml->push ('p', text => <<EOF);
+$mainbody->push ('h1', text => 'Twitter emoji via Image::CairoSVG');
+$mainbody->push ('p', text => <<EOF);
 This page is a demonstration of constructing the Twitter Emoji using
 Image::CairoSVG to render the SVG icons from SVG into PNG. The icons
 on the left are the original SVG icons, and the icons on the right are
