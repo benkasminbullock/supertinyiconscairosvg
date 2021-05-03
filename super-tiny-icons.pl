@@ -8,8 +8,18 @@ use Image::CairoSVG;
 use lib $Bin;
 use STI;
 
-my $verbose;
-#$verbose = 1;
+my $ok = GetOptions (
+    "single=s" => \my $single,
+    "verbose" => \my $verbose,
+);
+
+if (! $ok) {
+    print <<EOF;
+--single <name>  - do just one SVG file of the collection
+--verbose        - print debugging messages
+EOF
+}
+
 binmode STDOUT, ":encoding(utf8)";
 my $wwwdir = "$Bin";
 my $dir = "$wwwdir/docs";
@@ -33,10 +43,13 @@ $li->push ('a', href => 'https://github.com/edent/SuperTinyIcons', text => 'Supe
 $li->push ('a', href => 'twemoji/index.html', text => 'Twitter Emoji');
 my $table = $body->push ('table');
 my %attr = (width => 500, height => 500);
+my $one;
 for my $file (@svg) {
-    if ($file !~ /\/kaggle\./) {
-#	next;
+    if ($single && $file !~ /\Q$single\E/) {
+	next;
     }
+#    print "$file\n";
+    $one = 1;
     # Make a new object each time because this is prone to crashing
     # and leaving the object in a state of disrepair.
     my $cairosvg = Image::CairoSVG->new (verbose => $verbose);
@@ -73,7 +86,11 @@ for my $file (@svg) {
 	warn "$png failed: $@";
     }
 }
+
 write_text ("$dir/index.html", $html->text ());
+if ($single && ! $one) {
+    print "$single not found.\n";
+}
 if ($verbose) {
     print "Finished.\n";
 }
