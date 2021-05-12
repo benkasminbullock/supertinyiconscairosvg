@@ -25,7 +25,7 @@ my $wwwdir = "$Bin";
 my $dir = "$wwwdir/docs";
 md ($dir, $verbose);
 
-my $indir = "/home/ben/software/SuperTinyIcons/images/svg";
+my $indir = "$Bin/docs/svg";
 if (! -d $indir) {
     die "No $indir";
 }
@@ -55,7 +55,7 @@ for my $file (@svg) {
     my $cairosvg = Image::CairoSVG->new (verbose => $verbose);
     my $base = $file;
     $base =~ s!.*/!!;
-    copy $file, "$svgdir/$base" or die $!;
+#    copy $file, "$svgdir/$base" or die $!;
     my $hrow = $table->push ('tr');
     $hrow->push ('th', text => $base, class => 'svgfilename',
 		 attr => {colspan => 2});
