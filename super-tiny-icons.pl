@@ -41,6 +41,7 @@ my $links = $body->push ('ul');
 my $li = $links->push ('li');
 $li->push ('a', href => 'https://github.com/edent/SuperTinyIcons', text => 'Super Tiny Icons repository');
 $li->push ('a', href => 'twemoji/index.html', text => 'Twitter Emoji');
+$li->push ('a', href => 'sts.html', text => 'SVG Test Suite');
 my $table = $body->push ('table');
 my %attr = (width => 500, height => 500);
 my $one;
