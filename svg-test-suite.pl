@@ -21,6 +21,7 @@ struct-use
 animate
 !x;
 for my $file (@svg) {
+#    if ($file !~ /wank/) {
     if ($file !~ /color-prop-03/) {
 #	next;
     }
@@ -33,14 +34,18 @@ for my $file (@svg) {
     if ($png eq $file) {
 	die;
     }
-    my $cairosvg = Image::CairoSVG->new ();
+    if (-f $png) {
+	unlink $png or die $!;
+    }
+    my $cairosvg = Image::CairoSVG->new (verbose => undef);
+    my $surface;
     eval {
-	my $surface = $cairosvg->render ($file);
-	$surface->write_to_png ($png);
+	$surface = $cairosvg->render ($file);
     };
     if ($@) {
 	next;
     }
+    $surface->write_to_png ($png);
     my $furl = furl ($file);
     my $purl = furl ($png);
     my $trh = $table->push ('tr');
